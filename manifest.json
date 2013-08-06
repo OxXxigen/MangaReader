@@ -1,0 +1,14 @@
+{
+	"name": "Manga reader",
+	"version": "0.1",
+	"manifest_version": 2,
+	"default_locale": "en",
+	"app": {
+		"launch": {
+			"local_path": "main.html"
+		}
+	},
+	"permissions": [
+		"storage"
+	]
+}

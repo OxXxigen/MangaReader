@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Dropbox\\ChromeExtentions\\MangaReaderApp",
+			"file_exclude_patterns": ["*.sublime-*"]
+		}
+	]
+}
