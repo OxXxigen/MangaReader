@@ -1,6 +1,6 @@
 var const_plugins = Array(
 	'readmanga.js',
-	'adultmanga.js'
+	'manga24.js'
 );
 
 var plugins = {};

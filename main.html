@@ -37,17 +37,28 @@
 				</div><!-- /.container -->
 			</div><!-- /.navbar -->
 		</header>
-		<article class="container">
-			<div id="home-tab" class="block">
-				<span class=""> home</span>
-			</div>
-			<div id="search-tab" class="block" style="">
-				<span class="glyphicon glyphicon-ok"></span>
-				<span class=""> search</span>
-			</div>
-		</article>
+		<article class="container"></article>
 		<footer>
-			
 		</footer>
+		<script type="text/template" id="template-home">
+			template-home
+		</script>
+		<script type="text/template" id="template-search">
+			<div class="input-group">
+				<span class="input-group-addon">@</span>
+				<input type="text" class="form-control" placeholder="Username">
+			</div>
+			<div class="input-group">
+				<ul class="list-group">
+					<% _.each(plugins, function(data,i){ %>
+						<li class="list-group-item">
+							<input type="checkbox" class="host" id="search_<%=i%>" checked/>
+							<img src="<%=data.iconPath%>"></img>
+							<%=data.name%>
+						</li>
+					<% }); %>
+				</ul>
+			</div>
+		</script>
 	</body>
 </html>
