@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="js/includes/function.js"></script>
 		<script type="text/javascript" src="js/includes/init.js"></script>
 		<script type="text/javascript" src="js/includes/loader.js"></script>
+		<title>MangaReader Title</title>
 	</head>
 	<body>
 		<header>
@@ -45,20 +46,20 @@
 		</script>
 		<script type="text/template" id="template-search">
 			<div class="input-group">
-				<span class="input-group-addon">@</span>
-				<input type="text" class="form-control" placeholder="Username">
+				<input id="searchMangaName" type="text" class="form-control" placeholder="Manga name">
+				<span class="input-group-btn">
+					<button id="action-mangaSearch" class="btn btn-default" type="button">Go!</button>
+				</span>
 			</div>
-			<div class="input-group">
-				<ul class="list-group">
-					<% _.each(plugins, function(data,i){ %>
-						<li class="list-group-item">
-							<input type="checkbox" class="host" id="search_<%=i%>" checked/>
-							<img src="<%=data.iconPath%>"></img>
-							<%=data.name%>
-						</li>
-					<% }); %>
-				</ul>
-			</div>
+			<ul class="list-group">
+				<% _.each(plugins, function(data,i){ %>
+					<li class="list-group-item">
+						<input type="checkbox" class="mangahost" id="search_<%=i%>" checked/>
+						<img src="<%=data.iconPath%>"></img>
+						<%=data.name%>
+					</li>
+				<% }); %>
+			</ul>
 		</script>
 	</body>
 </html>
