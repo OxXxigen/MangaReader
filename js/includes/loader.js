@@ -1,17 +1,34 @@
-const_plugins.forEach(function(pluginName){
-	// $.getScript("plugins/"+pluginName, function(data){
-	// 	console.log(data);
-	// });
-	$.ajax({
-		url      : "plugins/"+pluginName,
-		async    : false,
-		dataType : 'json',
-		success  : function(data){
-			plugins[pluginName] = data;
-			console.log(data);
-		}
-	})
-});
+var Reader = function() {
+	var THIS = this;
+
+	var _plugins = Array(
+		'readmanga.js',
+		'manga24.js'
+	);
+
+	this.plugins = {};
+
+	this.addPlugin = function(data){
+		this.plugins[data.name] = data;
+	}
+
+	_loadPluginsData = function() {
+		_plugins.forEach(function(pluginName){
+			$.ajax({
+				url      : "plugins/"+pluginName,
+				async    : false,
+				dataType : 'json',
+				success  : function(data){
+					THIS.addPlugin(data);
+				}
+			})
+		});
+	}
+	_loadPluginsData();
+}
+var ReaderObj = new Reader();
+
+
 
 var appState, block, controller;
 $(function(){
@@ -22,6 +39,9 @@ $(function(){
 
 	var Block = Backbone.View.extend({
 		el: $("article"),
+		events: {
+			"click #action-mangaSearch": "searchManga" // Обработчик клика на кнопке поиск манги
+		},
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
 			"search": _.template($('#template-search').html())
@@ -33,6 +53,13 @@ $(function(){
 			var state = this.model.get("state");
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
+		},
+		searchManga: function(){
+			var mangaName = $(this.el).find('#searchMangaName').val();
+			$('.mangahost:checked').each(function(){
+				hostName = this.id;
+				console.log(hostName);
+			});
 		}
 	});
 
