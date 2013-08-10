@@ -1,4 +1,5 @@
-var Reader = function() {
+"use strict";
+var ReaderController = function() {
 	var THIS = this;
 
 	var _plugins = Array(
@@ -12,7 +13,7 @@ var Reader = function() {
 		this.plugins[data.name] = data;
 	}
 
-	_loadPluginsData = function() {
+	var _loadPluginsData = function() {
 		_plugins.forEach(function(pluginName){
 			$.ajax({
 				url      : "plugins/"+pluginName,
@@ -25,16 +26,22 @@ var Reader = function() {
 		});
 	}
 	_loadPluginsData();
+
+	this.searchManga = function(mangaName, mangaList, callback) {
+		console.log(mangaName, mangaList,callback);
+		mangaList.forEach(function(data){
+			console.log(data);
+		})
+	}
 }
-var ReaderObj = new Reader();
+var ReaderObj = new ReaderController();
 
 
 
 var appState, block, controller;
 $(function(){
 	var AppState = Backbone.Model.extend({
-		defaults: {
-		}
+		defaults: {}
 	});
 
 	var Block = Backbone.View.extend({
@@ -56,10 +63,14 @@ $(function(){
 		},
 		searchManga: function(){
 			var mangaName = $(this.el).find('#searchMangaName').val();
-			$('.mangahost:checked').each(function(){
-				hostName = this.id;
-				console.log(hostName);
-			});
+			list = $('.mangahost:checked').map(function(){return this.id});
+			ReaderObj.searchManga(
+				mangaName,
+				$('.mangahost:checked').map(function(){return this.id}).get(),
+				function(){
+
+				}
+			);
 		}
 	});
 

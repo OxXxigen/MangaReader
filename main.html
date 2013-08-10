@@ -10,8 +10,6 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-glyphicons.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
-		<script type="text/javascript" src="js/includes/const.js"></script>
-		<script type="text/javascript" src="js/includes/function.js"></script>
 		<script type="text/javascript" src="js/includes/init.js"></script>
 		<script type="text/javascript" src="js/includes/loader.js"></script>
 		<title>MangaReader Title</title>
@@ -45,21 +43,28 @@
 			template-home
 		</script>
 		<script type="text/template" id="template-search">
-			<div class="input-group">
-				<input id="searchMangaName" type="text" class="form-control" placeholder="Manga name">
-				<span class="input-group-btn">
-					<button id="action-mangaSearch" class="btn btn-default" type="button">Go!</button>
-				</span>
+			<div class="pull-left col-sm-6">
+				<div class="input-group">
+					<input id="searchMangaName" type="text" class="form-control" placeholder="Manga name">
+					<span class="input-group-btn">
+						<button id="action-mangaSearch" class="btn btn-default" type="button">Go!</button>
+					</span>
+				</div>
+				<div>
+					<ul class="list-group">
+						<% _.each(ReaderObj.plugins, function(data,i){ %>
+							<li class="list-group-item">
+								<input type="checkbox" class="mangahost" id="<%=i%>" checked/>
+								<img src="<%=data.iconPath%>"></img>
+								<%=data.name%>
+							</li>
+						<% }); %>
+					</ul>
+				</div>
 			</div>
-			<ul class="list-group">
-				<% _.each(plugins, function(data,i){ %>
-					<li class="list-group-item">
-						<input type="checkbox" class="mangahost" id="search_<%=i%>" checked/>
-						<img src="<%=data.iconPath%>"></img>
-						<%=data.name%>
-					</li>
-				<% }); %>
-			</ul>
+			<div class="pull-right col-sm-6">
+			searchResults
+			</div>
 		</script>
 	</body>
 </html>
