@@ -3,38 +3,38 @@ var ReaderController = function() {
 	var THIS = this;
 
 	var _plugins = Array(
-		'readmanga.js',
-		'manga24.js'
+		'readmanga.js'/*,
+		'manga24.js'*/
 	);
 
 	this.plugins = {};
 
-	this.addPlugin = function(data){
-		this.plugins[data.name] = data;
-	}
+	this.addPlugin = function(data) { this.plugins[data.name] = data; }
 
-	var _loadPluginsData = function() {
+	this.loadPluginsData = function() {
 		_plugins.forEach(function(pluginName){
 			$.ajax({
 				url      : "plugins/"+pluginName,
 				async    : false,
-				dataType : 'json',
-				success  : function(data){
-					THIS.addPlugin(data);
-				}
+				dataType : 'script'
 			})
 		});
 	}
-	_loadPluginsData();
 
 	this.searchManga = function(mangaName, mangaList, callback) {
-		console.log(mangaName, mangaList,callback);
-		mangaList.forEach(function(data){
-			console.log(data);
+		if( mangaName === '') errors("Название манги не введено");
+
+		mangaList.forEach(function(host){
+			var q = THIS.plugins[host].searchManga(mangaName);
 		})
+	}
+
+	var errors = function(text) {
+		throw text;
 	}
 }
 var ReaderObj = new ReaderController();
+ReaderObj.loadPluginsData();
 
 
 
@@ -63,7 +63,6 @@ $(function(){
 		},
 		searchManga: function(){
 			var mangaName = $(this.el).find('#searchMangaName').val();
-			list = $('.mangahost:checked').map(function(){return this.id});
 			ReaderObj.searchManga(
 				mangaName,
 				$('.mangahost:checked').map(function(){return this.id}).get(),
