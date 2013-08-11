@@ -27,5 +27,40 @@ ReaderObj.addPlugin({
 			}
 		});
 		return mangaObj;
+	},
+	getMangaInfo : function( mangaPath ) {
+		var titleImagesArr = [],
+		    chaptersArray  = [],
+		    description    = '';
+		$.ajax({
+			url      : "http://readmanga.me/" + mangaPath,
+			async    : false,
+			dataType : "html",
+			success  : function( page ) {
+				titleImagesArr = $('a.full-list-pic', page).map(function(){return this.href}).get();
+				description    = $.trim($('.manga-description p:first', page ).text());
+				chaptersArray  = $('.cTable:eq(2) tr:not(:first)', page).map(function( id, row ){
+					link_obj = $("td:eq(1) a", row);
+					status   = $("td:eq(1) sup", row).text();
+					link     = link_obj.attr('href');
+					tmp      = /vol(\d+)\/(\d+)$/i.exec("/naruto/vol67/642");
+					volum    = tmp[1];
+					chapter  = tmp[2];
+					title = $.trim(link_obj.text().replace(status,'')).replace(/(\s{3}|\n|\t)/g,'');
+					return {
+						url     : link,
+						title   : title,
+						volum   : volum,
+						chapter : chapter,
+						status  : status
+					};
+				}).get();
+			}
+		})
+		return {
+			titleImagesArr : titleImagesArr,
+			chaptersArray  : chaptersArray,
+			description    : description
+		};
 	}
 });

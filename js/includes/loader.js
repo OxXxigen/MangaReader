@@ -11,6 +11,10 @@ var ReaderController = function() {
 
 	this.addPlugin = function(data) { this.plugins[data.name] = data; }
 
+	var errors = function(text) {
+		throw text;
+	}
+
 	this.loadPluginsData = function() {
 		_plugins.forEach(function(pluginName){
 			$.ajax({
@@ -35,8 +39,9 @@ var ReaderController = function() {
 		if (callback) callback(tpl,ret_obj);
 	}
 
-	var errors = function(text) {
-		throw text;
+	this.getMangaInfo = function (host, mangaPath) {
+		var info = this.plugins[host].getMangaInfo(mangaPath);
+		console.log(info);
 	}
 }
 
@@ -90,6 +95,7 @@ $(function(){
 			"!/": "home", // Начальная страница
 			"!/home": "home", // Начальная страница
 			"!/search": "search", // Блок удачи
+			"!/manga/:hostname/:mangaPath/:vol/:chapter/:page" : "manga"
 		},
 
 		home: function () {
@@ -98,6 +104,10 @@ $(function(){
 
 		search: function () {
 			appState.set({ state: "search" });
+		},
+		manga: function(hostname, mangaPath, volume, chapter, page) {
+			// console.log("qweqwe",hostname, mangaName, chapter, page);
+			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
 		}
 	});
 
