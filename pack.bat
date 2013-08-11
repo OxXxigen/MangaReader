@@ -2,7 +2,9 @@
 REM ************************************************************
 REM	*	Call chrome to package the extension
 REM ************************************************************
-SET CHROME="%USERPROFILE%\AppData\Local\Google\Chrome\Application\chrome.exe"
+;SET CHROME="%USERPROFILE%\AppData\Local\Google\Chrome\Application\chrome.exe"
+SET CHROME="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+
 
 IF NOT EXIST %CHROME% (
 	ECHO Chrome.exe was not found.
@@ -25,3 +27,4 @@ IF NOT EXIST %CHROME% (
 		move /Y "%CD%\src.crx" "%CD%\build\src.crx"
 	)
 )
+pause
