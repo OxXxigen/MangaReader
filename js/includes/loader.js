@@ -24,19 +24,24 @@ var ReaderController = function() {
 	this.searchManga = function(mangaName, mangaList, callback) {
 		if( mangaName === '') errors("Название манги не введено");
 
+		var ret_obj = {};
 		mangaList.forEach(function(host){
-			var q = THIS.plugins[host].searchManga(mangaName);
-		})
+			var tmp_obj = THIS.plugins[host].searchManga(mangaName);
+			ret_obj[host] = tmp_obj;
+		});
+
+		var tpl = _.template($('#template-search-result').html(),{data:ret_obj});
+
+		if (callback) callback(tpl,ret_obj);
 	}
 
 	var errors = function(text) {
 		throw text;
 	}
 }
+
 var ReaderObj = new ReaderController();
 ReaderObj.loadPluginsData();
-
-
 
 var appState, block, controller;
 $(function(){
@@ -47,7 +52,8 @@ $(function(){
 	var Block = Backbone.View.extend({
 		el: $("article"),
 		events: {
-			"click #action-mangaSearch": "searchManga" // Обработчик клика на кнопке поиск манги
+			"click #action-mangaSearch": "searchManga", // Обработчик клика на кнопке поиск манги
+			'click .manga-link' : "manga_link_click"
 		},
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
@@ -58,6 +64,8 @@ $(function(){
 		},
 		render: function () {
 			var state = this.model.get("state");
+			$('ul.navbar-nav li').removeClass('active')
+				.parent().find('li#page-' + state).addClass('active');
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
 		},
@@ -66,10 +74,13 @@ $(function(){
 			ReaderObj.searchManga(
 				mangaName,
 				$('.mangahost:checked').map(function(){return this.id}).get(),
-				function(){
-
+				function(tpl,obj){
+					$('#search-results').html(tpl);
 				}
 			);
+		},
+		manga_link_click: function(){
+			return false;
 		}
 	});
 
@@ -94,4 +105,6 @@ $(function(){
 	block = new Block({ model: appState });
 	controller = new Controller(); // Создаём контроллер
 	Backbone.history.start();
+
+	//controller.navigate("!/home",{trigger:true})
 });

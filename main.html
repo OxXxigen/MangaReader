@@ -28,8 +28,8 @@
 
 					<div class="nav-collapse collapse navbar-responsive-collapse">
 						<ul class="nav navbar-nav">
-							<li><a href="#!/home">Home</a></li>
-							<li><a href="#!/search">Search</a></li>
+							<li id="page-home"><a href="#!/home">Home</a></li>
+							<li id="page-search"><a href="#!/search">Search</a></li>
 						</ul>
 					</div><!-- /.nav-collapse -->
 				</div><!-- /.container -->
@@ -42,14 +42,14 @@
 			template-home
 		</script>
 		<script type="text/template" id="template-search">
-			<div class="pull-left col-sm-6">
-				<div class="input-group">
-					<input id="searchMangaName" type="text" class="form-control" placeholder="Manga name">
+			<div class="pull-left col-5">
+				<div class="input-group row">
+					<input id="searchMangaName" value="naruto" type="text" class="form-control" placeholder="Manga name">
 					<span class="input-group-btn">
 						<button id="action-mangaSearch" class="btn btn-default" type="button">Go!</button>
 					</span>
 				</div>
-				<div>
+				<div class="row">
 					<ul class="list-group">
 						<% _.each(ReaderObj.plugins, function(data,i){ %>
 							<li class="list-group-item">
@@ -61,9 +61,17 @@
 					</ul>
 				</div>
 			</div>
-			<div class="pull-right col-sm-6">
-			searchResults
-			</div>
+			<div class="pull-right col-5" id="search-results"></div>
+		</script>
+		<script type="text/template" id="template-search-result">
+			<% _.each(data, function(sub_data,i){ %>
+				<div class="row"><h3><%= i %></h3></div>
+				<% _.each(sub_data, function(manga){%>
+					<div>
+					<a class="manga-link" href="<%= ReaderObj.plugins[i].host + manga.manga_url %>"><%= manga.title %></a>
+					</div>
+				<% }); %>
+			<% }); %>
 		</script>
 	</body>
 </html>
