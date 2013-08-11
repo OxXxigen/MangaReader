@@ -41,9 +41,7 @@ var ReaderController = function() {
 
 	this.getMangaInfo = function (host, mangaPath, callback) {
 		var info = this.plugins[host].getMangaInfo(mangaPath);
-		console.log(info);
-		// var tpl = _.template($('#template-manga-title').html(),{mangaInfo:info});
-		// if (callback) callback(tpl,info);
+		if (callback) callback(info);
 		return info;
 	}
 }
@@ -110,10 +108,7 @@ $(function(){
 			appState.set({ state: "search" });
 		},
 		manga: function(hostname, mangaPath, volume, chapter, page) {
-			// console.log("qweqwe",hostname, mangaName, chapter, page);
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
-
-			// $('script:contains(pictures = )').html()
 			appState.set({ 
 				state     : "manga",
 				hostname  : hostname,
