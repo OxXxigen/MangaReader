@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
 
 		<script type="text/javascript" src="js/underscore-min.js"></script>
 		<script type="text/javascript" src="js/backbone-min.js"></script>
@@ -12,6 +12,25 @@
 
 		<script type="text/javascript" src="js/includes/loader.js" charset="utf-8"></script>
 		<title>MangaReader Title</title>
+		<style type="text/css">
+			.modal-content {
+				min-height: 100%;
+			}
+			.modal-dialog { 
+			   /* position: fixed; 
+			    right: 1%; 
+			    left: 1%; 
+			    
+			    margin: 0; 
+			    */
+			    padding-top: 0px;
+			    width: auto; 
+			    height: auto;
+			}
+			.modal-body { 
+			    /*height: 60%; */
+			}
+		</style>
 	</head>
 	<body style="background-color: #D4D4D4;">
 		<header>
@@ -89,20 +108,20 @@
 			</div>
 			<!-- Modal -->
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Launch demo modal</a>
-			<div class="modal fade" id="myModal">
+			<a data-toggle="modal" href="#manga-window" class="btn btn-primary btn-lg" >Launch demo modal</a>
+			<div class="modal fade" id="manga-window">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<div id="carousel-manga-block" class="carousel slide">
+							<div id="carousel-manga-block" class="carousel slide" data-interval="false">
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">
 									<% _.each(pages, function(page ,i){ %>
 										<div class="item <% if (i == 0) {%>active<%} %>">
-											<img src="<%=page.url%>" alt="" >
+											<center><img style="width:100%" src="<%=page.url%>" alt="" ></center>
 										</div>
 									<% });%>
 								</div>
@@ -122,6 +141,13 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
+			<%
+				$(function(){
+					if (!$.isEmptyObject(pages)) {
+						$('#manga-window').modal('show');
+					}
+				});
+			%>
 		</script>
 		<script type="text/template" id="template-search">
 			<div class="pull-left col-sm-5">
