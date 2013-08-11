@@ -42,7 +42,38 @@
 			template-home
 		</script>
 		<script type="text/template" id="template-manga-title">
-			template-manga-title
+			<div class="pull-left col-5">
+				<div id="carousel-example-generic" class="carousel slide">
+					<!-- Indicators -->
+					<!--
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
+					-->
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<% _.each(mangaInfo.titleImagesArr, function(img,i){ console.log(i);%>
+							<div class="item <% if (i == 0) {%>active<%} %>">
+								<img src="<%=img%>" alt="" >
+							</div>
+						<% });%>
+					</div>
+
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+						<span class="icon-prev"></span>
+					</a>
+					<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+						<span class="icon-next"></span>
+					</a>
+				</div>
+			</div>
+			<div class="pull-right col-5 well">
+				<%=mangaInfo.description%>
+			</div>
 		</script>
 		<script type="text/template" id="template-search">
 			<div class="pull-left col-5">
@@ -54,10 +85,10 @@
 				</div>
 				<div class="row">
 					<ul class="list-group">
-						<% _.each(ReaderObj.plugins, function(data,i){ %>
+						<% _.each(ReaderObj.plugins, function(data,i){  %>
 							<li class="list-group-item">
 								<input type="checkbox" class="mangahost" id="<%=i%>" checked/>
-								<img src="<%=data.iconPath%>"></img>
+								<img src="<%=data.iconPath%>" ></img>
 								<%=data.name%>
 							</li>
 						<% }); %>

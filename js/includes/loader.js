@@ -39,9 +39,12 @@ var ReaderController = function() {
 		if (callback) callback(tpl,ret_obj);
 	}
 
-	this.getMangaInfo = function (host, mangaPath) {
+	this.getMangaInfo = function (host, mangaPath, callback) {
 		var info = this.plugins[host].getMangaInfo(mangaPath);
 		console.log(info);
+		// var tpl = _.template($('#template-manga-title').html(),{mangaInfo:info});
+		// if (callback) callback(tpl,info);
+		return info;
 	}
 }
 
@@ -62,7 +65,8 @@ $(function(){
 		},
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
-			"search": _.template($('#template-search').html())
+			"search": _.template($('#template-search').html()),
+			"manga": _.template($('#template-manga-title').html())
 		},
 		initialize: function () { // Подписка на событие модели
 			this.model.bind('change', this.render, this);
@@ -108,6 +112,9 @@ $(function(){
 		manga: function(hostname, mangaPath, volume, chapter, page) {
 			// console.log("qweqwe",hostname, mangaName, chapter, page);
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
+
+			// $('script:contains(pictures = )').html()
+			appState.set({ state: "manga" , mangaInfo : info });
 		}
 	});
 
