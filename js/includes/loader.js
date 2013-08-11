@@ -124,7 +124,8 @@ $(function(){
 				hostname  : hostname,
 				mangaPath : mangaPath,
 				mangaInfo : info,
-				pages     : pages
+				pages     : pages,
+				page      : page
 			});
 		}
 	});

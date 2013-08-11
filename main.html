@@ -145,7 +145,22 @@
 				$(function(){
 					if (!$.isEmptyObject(pages)) {
 						$('#manga-window').modal('show');
+						if (!$.isEmptyObject(page)){
+							$('#carousel-manga-block').carousel(Number(page));
+						} else {
+							$('#carousel-manga-block').children('.left.carousel-control').hide();
+						}
 					}
+					$('#carousel-manga-block').on('slid', '', function() {
+						var $this = $(this);
+						first = $('.carousel-inner .item:first', $this).is('.active');
+						last  = $('.carousel-inner .item:last', $this).is('.active');
+						$this.children('.carousel-control').show();
+						if (last)
+							$this.children('.right.carousel-control').hide();
+						if (first)
+							$this.children('.left.carousel-control').hide();
+					});
 				});
 			%>
 		</script>
