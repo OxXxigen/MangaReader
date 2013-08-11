@@ -42,7 +42,7 @@
 			template-home
 		</script>
 		<script type="text/template" id="template-manga-title">
-			<div class="pull-left col-5">
+			<div class="pull-left col-sm-5 row">
 				<div id="carousel-example-generic" class="carousel slide">
 					<!-- Indicators -->
 					<!--
@@ -71,15 +71,15 @@
 					</a>
 				</div>
 			</div>
-			<div class="pull-right col-5 ">
+			<div class="pull-right col-sm-7 row">
 				<div class="well">
 					<%=mangaInfo.description%>
 				</div>
-				<div>
+				<div class="pre-scrollable well">
 					<ul>
 					<% _.each(mangaInfo.chaptersArray,function(data, i){ %>
 						<li>
-							<a href="#!/manga/<%=hostname%>/<%=mangaPath%>/<%=data.volum%>/<%=data.chapter%>/">
+							<a href="#!/manga/<%=hostname%>/<%=mangaPath%>/<%=data.volum%>/<%=data.chapter%>">
 								<%=data.title%>
 							</a>
 						</li>
@@ -89,7 +89,7 @@
 			</div>
 		</script>
 		<script type="text/template" id="template-search">
-			<div class="pull-left col-5">
+			<div class="pull-left col-sm-5">
 				<div class="input-group row">
 					<input id="searchMangaName" value="naruto" type="text" class="form-control" placeholder="Manga name">
 					<span class="input-group-btn">
@@ -108,14 +108,14 @@
 					</ul>
 				</div>
 			</div>
-			<div class="pull-right col-5" id="search-results"></div>
+			<div class="pull-right col-sm-5" id="search-results"></div>
 		</script>
 		<script type="text/template" id="template-search-result">
 			<% _.each(data, function(sub_data,i){ %>
 				<div class="row"><h3><%= i %></h3></div>
 				<% _.each(sub_data, function(manga){%>
 					<div>
-					<a class="manga-link" href="<%= ReaderObj.plugins[i].host + manga.manga_url %>"><%= manga.title %></a>
+					<a class="manga-link" href="#!/manga/<%= i + manga.manga_url %>"><%= manga.title %></a>
 					</div>
 				<% }); %>
 			<% }); %>

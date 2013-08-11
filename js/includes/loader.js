@@ -87,7 +87,7 @@ $(function(){
 			);
 		},
 		manga_link_click: function(){
-			return false;
+			// return false;
 		}
 	});
 
