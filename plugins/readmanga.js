@@ -43,7 +43,7 @@ ReaderObj.addPlugin({
 					link_obj = $("td:eq(1) a", row);
 					status   = $("td:eq(1) sup", row).text();
 					link     = link_obj.attr('href');
-					tmp      = /vol(\d+)\/(\d+)$/i.exec("/naruto/vol67/642");
+					tmp      = /vol(\d+)\/(\d+)$/i.exec(link);
 					volum    = tmp[1];
 					chapter  = tmp[2];
 					title = $.trim(link_obj.text().replace(status,'')).replace(/(\s{3}|\n|\t)/g,'');

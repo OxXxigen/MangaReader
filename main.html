@@ -55,7 +55,7 @@
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
-						<% _.each(mangaInfo.titleImagesArr, function(img,i){ console.log(i);%>
+						<% _.each(mangaInfo.titleImagesArr, function(img,i){ %>
 							<div class="item <% if (i == 0) {%>active<%} %>">
 								<img src="<%=img%>" alt="" >
 							</div>
@@ -71,8 +71,21 @@
 					</a>
 				</div>
 			</div>
-			<div class="pull-right col-5 well">
-				<%=mangaInfo.description%>
+			<div class="pull-right col-5 ">
+				<div class="well">
+					<%=mangaInfo.description%>
+				</div>
+				<div>
+					<ul>
+					<% _.each(mangaInfo.chaptersArray,function(data, i){ %>
+						<li>
+							<a href="#!/manga/<%=hostname%>/<%=mangaPath%>/<%=data.volum%>/<%=data.chapter%>/">
+								<%=data.title%>
+							</a>
+						</li>
+					<% }) %>
+					</ul>
+				</div>
 			</div>
 		</script>
 		<script type="text/template" id="template-search">

@@ -99,7 +99,7 @@ $(function(){
 			"!/": "home", // Начальная страница
 			"!/home": "home", // Начальная страница
 			"!/search": "search", // Блок удачи
-			"!/manga/:hostname/:mangaPath/:vol/:chapter/:page" : "manga"
+			"!/manga/:hostname/:mangaPath(/:vol)(/:chapter)(/:page)" : "manga"
 		},
 
 		home: function () {
@@ -114,7 +114,12 @@ $(function(){
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
 
 			// $('script:contains(pictures = )').html()
-			appState.set({ state: "manga" , mangaInfo : info });
+			appState.set({ 
+				state     : "manga",
+				hostname  : hostname,
+				mangaPath : mangaPath,
+				mangaInfo : info
+			});
 		}
 	});
 
