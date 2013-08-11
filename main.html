@@ -119,9 +119,14 @@
 							<div id="carousel-manga-block" class="carousel slide" data-interval="false">
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">
-									<% _.each(pages, function(page ,i){ %>
+									<% _.each(pages, function(_page ,i){ %>
 										<div class="item <% if (i == 0) {%>active<%} %>">
-											<center><img style="width:100%" src="<%=page.url%>" alt="" ></center>
+											<center>
+												<img style="width:100%" 
+												<%if (i == 0 || i == 1 || i <= page) {%>src="<%=_page.url%>"<%}else{%>realsrc="<%=_page.url%>"<%}%>
+												
+												alt="" >
+											</center>
 										</div>
 									<% });%>
 								</div>
@@ -151,10 +156,13 @@
 							$('#carousel-manga-block').children('.left.carousel-control').hide();
 						}
 					}
-					$('#carousel-manga-block').on('slid', '', function() {
+					$('#carousel-manga-block').on('slid', '', function(e) {
 						var $this = $(this);
 						first = $('.carousel-inner .item:first', $this).is('.active');
 						last  = $('.carousel-inner .item:last', $this).is('.active');
+						var currElem = $('.carousel-inner .item.active', $this);
+						var next = currElem.next().find('img');
+						next.attr('src', next.attr('realsrc'));
 						$this.children('.carousel-control').show();
 						if (last)
 							$this.children('.right.carousel-control').hide();

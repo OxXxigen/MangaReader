@@ -2,11 +2,11 @@ ReaderObj.addPlugin({
 	name     : "ReadManga",
 	lang     : "ru",
 	iconPath : "http://readmanga.me/favicon.ico",
-	host     : "http://readmanga.me",
+	host     : "http://readmanga.me/",
 	searchManga : function( mangaName ) {
 		var mangaObj = [];
 		$.ajax({
-			url      : "http://readmanga.me/search",
+			url      : this.host + "search",
 			data     : {q:mangaName},
 			async    : false,
 			dataType : 'html',
@@ -66,7 +66,7 @@ ReaderObj.addPlugin({
 	getPages : function( mangaPath, volume , chapter ){
 		var pages = {};
 		$.ajax({
-			url      : "http://readmanga.me/" + mangaPath + "/vol" + volume + "/" + chapter,
+			url      : this.host + mangaPath + "/vol" + volume + "/" + chapter,
 			async    : false,
 			dataType : 'html',
 			success  : function(data){
