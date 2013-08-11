@@ -62,5 +62,23 @@ ReaderObj.addPlugin({
 			chaptersArray  : chaptersArray,
 			description    : description
 		};
+	},
+	getPages : function( mangaPath, volume , chapter ){
+		var pages = {};
+		$.ajax({
+			url      : "http://readmanga.me/" + mangaPath + "/vol" + volume + "/" + chapter,
+			async    : false,
+			dataType : 'html',
+			success  : function(data){
+				scriptBlock = $('script:contains(pictures =)', data).html()
+				pages = (function(script){
+						try{
+							eval(script);
+						}catch(e){}
+						return pictures;
+				})(scriptBlock);
+			}
+		});
+		return pages;
 	}
 });

@@ -13,7 +13,7 @@
 		<script type="text/javascript" src="js/includes/loader.js" charset="utf-8"></script>
 		<title>MangaReader Title</title>
 	</head>
-	<body>
+	<body style="background-color: #D4D4D4;">
 		<header>
 			<div class="navbar">
 				<div class="container">
@@ -43,13 +43,13 @@
 		</script>
 		<script type="text/template" id="template-manga-title">
 			<div class="pull-left col-sm-5 row">
-				<div id="carousel-example-generic" class="carousel slide">
+				<div id="carousel-manga-image" class="carousel slide">
 					<!-- Indicators -->
 					<!--
 					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						<li data-target="#carousel-manga-image" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-manga-image" data-slide-to="1"></li>
+						<li data-target="#carousel-manga-image" data-slide-to="2"></li>
 					</ol>
 					-->
 
@@ -63,10 +63,10 @@
 					</div>
 
 					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+					<a class="left carousel-control" href="#carousel-manga-image" data-slide="prev">
 						<span class="icon-prev"></span>
 					</a>
-					<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+					<a class="right carousel-control" href="#carousel-manga-image" data-slide="next">
 						<span class="icon-next"></span>
 					</a>
 				</div>
@@ -87,6 +87,41 @@
 					</ul>
 				</div>
 			</div>
+			<!-- Modal -->
+			<!-- Button trigger modal -->
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Launch demo modal</a>
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+							<div id="carousel-manga-block" class="carousel slide">
+								<!-- Wrapper for slides -->
+								<div class="carousel-inner">
+									<% _.each(pages, function(page ,i){ %>
+										<div class="item <% if (i == 0) {%>active<%} %>">
+											<img src="<%=page.url%>" alt="" >
+										</div>
+									<% });%>
+								</div>
+								<!-- Controls -->
+								<a class="left carousel-control" href="#carousel-manga-block" data-slide="prev">
+									<span class="icon-prev"></span>
+								</a>
+								<a class="right carousel-control" href="#carousel-manga-block" data-slide="next">
+									<span class="icon-next"></span>
+								</a>
+							</div>
+						</div>
+						<!--<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>-->
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 		</script>
 		<script type="text/template" id="template-search">
 			<div class="pull-left col-sm-5">
@@ -98,7 +133,7 @@
 				</div>
 				<div class="row">
 					<ul class="list-group">
-						<% _.each(ReaderObj.plugins, function(data,i){  %>
+						<% _.each(ReaderObj.plugins, function(data,i){	%>
 							<li class="list-group-item">
 								<input type="checkbox" class="mangahost" id="<%=i%>" checked/>
 								<img src="<%=data.iconPath%>" ></img>

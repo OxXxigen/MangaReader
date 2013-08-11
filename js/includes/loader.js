@@ -44,6 +44,11 @@ var ReaderController = function() {
 		if (callback) callback(info);
 		return info;
 	}
+	this.getPages = function(host, mangaPath, volume, chapter, callback) {
+		var pages = this.plugins[host].getPages(mangaPath,volume,chapter);
+		if (callback) callback(pages);
+		return pages;
+	}
 }
 
 var ReaderObj = new ReaderController();
@@ -109,11 +114,17 @@ $(function(){
 		},
 		manga: function(hostname, mangaPath, volume, chapter, page) {
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
+			var pages = {}
+			if (!$.isEmptyObject(volume) && !$.isEmptyObject(chapter)){
+				pages = ReaderObj.getPages(hostname,mangaPath,volume,chapter);
+				console.log(pages);
+			}
 			appState.set({ 
 				state     : "manga",
 				hostname  : hostname,
 				mangaPath : mangaPath,
-				mangaInfo : info
+				mangaInfo : info,
+				pages     : pages
 			});
 		}
 	});
