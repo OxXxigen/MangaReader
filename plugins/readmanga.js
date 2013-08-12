@@ -7,7 +7,11 @@ ReaderObj.addPlugin({
 		var mangaObj = [];
 		$.ajax({
 			url      : this.host + "search",
-			data     : {q:mangaName},
+			data     : {
+				q       : mangaName,
+				el_5685 : 'ex', //исключаем из поиска арты и додзинси
+				el_2141 : 'ex'
+			},
 			async    : false,
 			dataType : 'html',
 			success  : function(data){
@@ -33,7 +37,7 @@ ReaderObj.addPlugin({
 		    chaptersArray  = [],
 		    description    = '';
 		$.ajax({
-			url      : "http://readmanga.me/" + mangaPath,
+			url      : this.host + mangaPath,
 			async    : false,
 			dataType : "html",
 			success  : function( page ) {

@@ -3,7 +3,8 @@ var ReaderController = function() {
 	var THIS = this;
 
 	var _plugins = Array(
-		'readmanga.js'/*,
+		'readmanga.js',
+		'adultmanga.js'/*,
 		'manga24.js'*/
 	);
 
