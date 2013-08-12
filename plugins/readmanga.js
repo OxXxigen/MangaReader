@@ -42,6 +42,8 @@ ReaderObj.addPlugin({
 			dataType : "html",
 			success  : function( page ) {
 				titleImagesArr = $('a.full-list-pic', page).map(function(){return this.href}).get();
+				if ($.isEmptyObject(titleImagesArr))
+					titleImagesArr = $('#slider > a', page).map(function(){return this.href}).get();
 				description    = $.trim($('.manga-description p:first', page ).text());
 				chaptersArray  = $('.cTable:eq(2) tr:not(:first)', page).map(function( id, row ){
 					link_obj = $("td:eq(1) a", row);
