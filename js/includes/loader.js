@@ -118,16 +118,29 @@ $(function(){
 			var pages = {}
 			if (!$.isEmptyObject(volume) && !$.isEmptyObject(chapter)){
 				pages = ReaderObj.getPages(hostname,mangaPath,volume,chapter);
-				console.log(pages);
+				var manga_pages = _.template(
+									$('#template-manga-window').html(), {
+										pages:pages,
+										page:page
+									});
+
 			}
 			appState.set({ 
 				state     : "manga",
 				hostname  : hostname,
 				mangaPath : mangaPath,
 				mangaInfo : info,
-				pages     : pages,
-				page      : page
+				page      : page,
+				manga_pages : manga_pages
 			});
+			if (!$.isEmptyObject(pages)) {
+				$('#manga-window').modal('show');
+				if (!$.isEmptyObject(page)){
+					$('#carousel-manga-block').carousel(Number(page));
+				} else {
+					$('#carousel-manga-block').children('.left.carousel-control').hide();
+				}
+			}
 		}
 	});
 
@@ -136,5 +149,25 @@ $(function(){
 	controller = new Controller(); // Создаём контроллер
 	Backbone.history.start();
 
-	//controller.navigate("!/home",{trigger:true})
+	$('article').on('slid','#carousel-manga-block', function() {
+		var first = $('.carousel-inner .item:first', this).is('.active');
+		var last  = $('.carousel-inner .item:last', this).is('.active');
+
+		var currElem = $('.carousel-inner .item.active', this);
+		var next = currElem.next().find('img');
+		next.attr('src', next.attr('realsrc'));
+		$(this).children('.carousel-control').show();
+		if (last)
+			$(this).children('.right.carousel-control').hide();
+		if (first)
+			$(this).children('.left.carousel-control').hide();
+
+		var $nextImage = $('.active.item', this).next('.item').find('img');
+		$nextImage.attr('src', $nextImage.data('lazy-load-src'));
+		$nextImage.removeAttr('data-lazy-load-src');
+
+		var $prevImage = $('.active.item', this).prev('.item').find('img');
+		$prevImage.attr('src', $prevImage.data('lazy-load-src'));
+		$prevImage.removeAttr('data-lazy-load-src');
+	});
 });

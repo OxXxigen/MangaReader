@@ -44,8 +44,10 @@ ReaderObj.addPlugin({
 				titleImagesArr = $('a.full-list-pic', page).map(function(){return this.href}).get();
 				if ($.isEmptyObject(titleImagesArr))
 					titleImagesArr = $('#slider > a', page).map(function(){return this.href}).get();
-				description    = $.trim($('.manga-description p:first', page ).text());
-				chaptersArray  = $('.cTable:eq(2) tr:not(:first)', page).map(function( id, row ){
+				if ($.isEmptyObject(titleImagesArr))
+					titleImagesArr = $('.subject-cower img', page).map(function(){return this.src}).get();
+				description    = $.trim($('.manga-description', page ).text());
+				chaptersArray  = $('.cTable:contains(Список глав) tr:not(:first)', page).map(function( id, row ){
 					link_obj = $("td:eq(1) a", row);
 					status   = $("td:eq(1) sup", row).text();
 					link     = link_obj.attr('href');

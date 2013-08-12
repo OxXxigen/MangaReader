@@ -108,8 +108,7 @@
 			</div>
 			<!-- Modal -->
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#manga-window" class="btn btn-primary btn-lg" >Launch demo modal</a>
-			<div class="modal fade" id="manga-window">
+			<div class="modal fade" id="manga-window" data-back_url="!/manga/<%=hostname%>/<%=mangaPath%>">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -119,16 +118,7 @@
 							<div id="carousel-manga-block" class="carousel slide" data-interval="false">
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">
-									<% _.each(pages, function(_page ,i){ %>
-										<div class="item <% if (i == 0) {%>active<%} %>">
-											<center>
-												<img style="width:100%" 
-												<%if (i == 0 || i == 1 || i <= page) {%>src="<%=_page.url%>"<%}else{%>realsrc="<%=_page.url%>"<%}%>
-												
-												alt="" >
-											</center>
-										</div>
-									<% });%>
+									<%=manga_pages%>
 								</div>
 								<!-- Controls -->
 								<a class="left carousel-control" href="#carousel-manga-block" data-slide="prev">
@@ -147,30 +137,32 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 			<%
-				$(function(){
-					if (!$.isEmptyObject(pages)) {
-						$('#manga-window').modal('show');
-						if (!$.isEmptyObject(page)){
-							$('#carousel-manga-block').carousel(Number(page));
-						} else {
-							$('#carousel-manga-block').children('.left.carousel-control').hide();
-						}
-					}
-					$('#carousel-manga-block').on('slid', '', function(e) {
-						var $this = $(this);
-						first = $('.carousel-inner .item:first', $this).is('.active');
-						last  = $('.carousel-inner .item:last', $this).is('.active');
-						var currElem = $('.carousel-inner .item.active', $this);
-						var next = currElem.next().find('img');
-						next.attr('src', next.attr('realsrc'));
-						$this.children('.carousel-control').show();
-						if (last)
-							$this.children('.right.carousel-control').hide();
-						if (first)
-							$this.children('.left.carousel-control').hide();
-					});
+				$('#carousel-manga-block').on('slid', '', function(e) {
+					// var $this = $(this);
+					// first = $('.carousel-inner .item:first', $this).is('.active');
+					// last  = $('.carousel-inner .item:last', $this).is('.active');
+					// var currElem = $('.carousel-inner .item.active', $this);
+					// var next = currElem.next().find('img');
+					// next.attr('src', next.attr('realsrc'));
+					// $this.children('.carousel-control').show();
+					// if (last)
+					// 	$this.children('.right.carousel-control').hide();
+					// if (first)
+					// 	$this.children('.left.carousel-control').hide();
 				});
 			%>
+		</script>
+		<script type="text/template" id="template-manga-window">
+			<% _.each(pages, function(_page ,i){ %>
+				<div class="item <% if (i == 0) {%>active<%} %>">
+					<center>
+						<img style="width:100%" 
+						<%if (i == 0 || i == 1 || i <= page) {%>src="<%=_page.url%>"<%}else{%>data-lazy-load-src="<%=_page.url%>"<%}%>
+						
+						alt="" >
+					</center>
+				</div>
+			<% });%>
 		</script>
 		<script type="text/template" id="template-search">
 			<div class="pull-left col-sm-5">
