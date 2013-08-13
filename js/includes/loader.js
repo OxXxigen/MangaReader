@@ -125,6 +125,7 @@ $(function(){
 									});
 
 			}
+
 			appState.set({ 
 				state     : "manga",
 				hostname  : hostname,
@@ -133,6 +134,7 @@ $(function(){
 				page      : page,
 				manga_pages : manga_pages
 			});
+
 			if (!$.isEmptyObject(pages)) {
 				$('#manga-window').modal('show');
 				if (!$.isEmptyObject(page)){
@@ -169,5 +171,9 @@ $(function(){
 		var $prevImage = $('.active.item', this).prev('.item').find('img');
 		$prevImage.attr('src', $prevImage.data('lazy-load-src'));
 		$prevImage.removeAttr('data-lazy-load-src');
+
+		$('.modal').animate({
+			scrollTop: 32
+		}, 300);
 	});
 });
