@@ -1,6 +1,6 @@
 {
 	"name": "Manga reader",
-	"version": "0.1",
+	"version": "0.2",
 	"manifest_version": 2,
 	"default_locale": "en",
 	"app": {
@@ -13,5 +13,7 @@
 		"unlimitedStorage",
 		"http://*/*"
 	],
+	"key":"eldajpabdjafanpegofehcmnefphgbpj",
+	"update_url" : "https://dl.dropboxusercontent.com/s/avbhfytthi98kxf/updates.xml?token_hash=AAFHwkx0wVlFiw3t9ZJgtTdLXEIhdYOkk37qEjVDPdmajg&dl=1",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
