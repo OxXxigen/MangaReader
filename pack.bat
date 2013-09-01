@@ -14,17 +14,17 @@ IF NOT EXIST %CHROME% (
 		MKDIR ".\build"
 	)
 
-	IF EXIST "%CD%\build\src.pem" (
+	IF EXIST "%CD%\build\ReadMangaApp.pem" (
 		REM build package with existing extension key
-		%CHROME% --pack-extension="%CD%\src" --pack-extension-key="%CD%\build\src.pem" --no-message-box
+		%CHROME% --pack-extension="%CD%\src" --pack-extension-key="%CD%\build\ReadMangaApp.pem" --no-message-box
 	) ELSE (
 		REM build package and create new extension key
 		%CHROME% --pack-extension="%CD%\src" --no-message-box
-		move "%CD%\src.pem" "%CD%\build\src.pem"
+		move "%CD%\ReadMangaApp.pem" "%CD%\build\ReadMangaApp.pem"
 	)
 
-	IF EXIST "%CD%\src.crx" (
-		move /Y "%CD%\src.crx" "%CD%\build\src.crx"
+	IF EXIST "%CD%\ReadMangaApp.crx" (
+		move /Y "%CD%\ReadMangaApp.crx" "%CD%\build\ReadMangaApp.crx"
 	)
 )
 pause
