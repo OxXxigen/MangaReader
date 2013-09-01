@@ -44,7 +44,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#!/home">Brand</a>
+					<a class="navbar-brand" href="#!/home">MangaReaderApp</a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -166,7 +166,7 @@
 			<% });%>
 		</script>
 		<script type="text/template" id="template-search">
-			<div class="pull-left col-sm-5">
+			<div class="pull-left col-sm-6">
 				<div class="input-group row">
 					<input id="searchMangaName" value="<%= mangaName%>" type="text" class="form-control" placeholder="Manga name">
 					<span class="input-group-btn">
@@ -185,16 +185,20 @@
 					</ul>
 				</div>
 			</div>
-			<div class="pull-right col-sm-5" id="search-results"><%= searchResults %></div>
+			<div class="pull-right col-sm-6" id="search-results"><%= searchResults %></div>
 		</script>
 		<script type="text/template" id="template-search-result">
 			<% _.each(data, function(sub_data,i){ %>
-				<div class="row"><h3><%= i %></h3></div>
-				<% _.each(sub_data, function(manga){%>
-					<div>
-					<a class="manga-link" href="#!/manga/<%= i + manga.manga_url %>"><%= manga.title %></a>
+				<div class="panel panel-default">
+					<div class="panel-body"><%= i %></div>
+					<div class="panel-footer">
+					<% _.each(sub_data, function(manga){%>
+						<div>
+						<a class="manga-link" href="#!/manga/<%= i + manga.manga_url %>"><%= manga.title %></a>
+						</div>
+					<% }); %>
 					</div>
-				<% }); %>
+				</div>
 			<% }); %>
 		</script>
 	</body>
