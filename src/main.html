@@ -167,7 +167,7 @@
 		<script type="text/template" id="template-search">
 			<div class="pull-left col-sm-5">
 				<div class="input-group row">
-					<input id="searchMangaName" value="naruto" type="text" class="form-control" placeholder="Manga name">
+					<input id="searchMangaName" value="<%= mangaName%>" type="text" class="form-control" placeholder="Manga name">
 					<span class="input-group-btn">
 						<button id="action-mangaSearch" class="btn btn-default" type="button">Go!</button>
 					</span>
@@ -184,7 +184,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="pull-right col-sm-5" id="search-results"></div>
+			<div class="pull-right col-sm-5" id="search-results"><%= searchResults %></div>
 		</script>
 		<script type="text/template" id="template-search-result">
 			<% _.each(data, function(sub_data,i){ %>

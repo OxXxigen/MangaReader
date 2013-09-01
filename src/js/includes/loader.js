@@ -82,13 +82,22 @@ $(function(){
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
 		},
-		searchManga: function(){
+		searchManga: function(event, MangaName){
 			var mangaName = $(this.el).find('#searchMangaName').val();
+			if (!$.isEmptyObject(MangaName))
+				mangaName = MangaName;
 			ReaderObj.searchManga(
 				mangaName,
 				$('.mangahost:checked').map(function(){return this.id}).get(),
 				function(tpl,obj){
-					$('#search-results').html(tpl);
+					console.log("manga name: %s", MangaName);
+					appState.set({
+						state: "search",
+						mangaName : mangaName,
+						searchResults: tpl
+					});
+					if (!$.isEmptyObject(mangaName))
+						controller.navigate('!/search/' + mangaName, {trigger: true});
 				}
 			);
 		},
@@ -102,7 +111,7 @@ $(function(){
 			"": "home", // Пустой hash-тэг
 			"!/": "home", // Начальная страница
 			"!/home": "home", // Начальная страница
-			"!/search": "search", // Блок удачи
+			"!/search(/:MangaName)": "search", // Блок удачи
 			"!/manga/:hostname/:mangaPath(/:vol)(/:chapter)(/:page)" : "manga"
 		},
 
@@ -110,8 +119,9 @@ $(function(){
 			appState.set({ state: "home" });
 		},
 
-		search: function () {
-			appState.set({ state: "search" });
+		search: function (MangaName) {
+			appState.set({ state: "search",searchResults:null,mangaName:null});
+			if (MangaName) block.searchManga(null,MangaName);
 		},
 		manga: function(hostname, mangaPath, volume, chapter, page) {
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
@@ -123,7 +133,6 @@ $(function(){
 										pages:pages,
 										page:page
 									});
-
 			}
 
 			appState.set({ 
