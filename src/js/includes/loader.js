@@ -65,6 +65,7 @@ $(function(){
 		el: $("article"),
 		events: {
 			"click #action-mangaSearch": "searchManga", // Обработчик клика на кнопке поиск манги
+			"keypress #searchMangaName" : "searchMangaReturnKey",
 			'click .manga-link' : "manga_link_click"
 		},
 		templates: { // Шаблоны на разное состояние
@@ -81,6 +82,9 @@ $(function(){
 				.parent().find('li#page-' + state).addClass('active');
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
+		},
+		searchMangaReturnKey : function(e){
+			if (e.keyCode === 13) this.searchManga();
 		},
 		searchManga: function(event, MangaName){
 			var mangaName = $(this.el).find('#searchMangaName').val();
