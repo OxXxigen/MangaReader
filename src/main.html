@@ -113,7 +113,33 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<div class="row">
+								<div class="col-md-4">
+									<select class="form-control">
+									<% _.each(mangaInfo.chaptersArray,function(chapter, i){ %>
+										<option value="<%=chapter.url%>"><%=chapter.title%></option>
+									<% }); %>
+									</select>
+								</div>
+								<div class="col-md-2">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default">Prev</button>
+										</span>
+										<select class="form-control">
+											<% _.each(pages,function(_page, i){ %>
+												<option value="<%=i+1%>"><%=i+1%></option>
+											<% }); %>
+										</select>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default">Next</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<span class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></span>
+								</div>
+							</div>
 						</div>
 						<div class="modal-body">
 							<div id="carousel-manga-block" class="carousel slide" data-interval="false">
@@ -137,21 +163,6 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-			<%
-				$('#carousel-manga-block').on('slid', '', function(e) {
-					// var $this = $(this);
-					// first = $('.carousel-inner .item:first', $this).is('.active');
-					// last	= $('.carousel-inner .item:last', $this).is('.active');
-					// var currElem = $('.carousel-inner .item.active', $this);
-					// var next = currElem.next().find('img');
-					// next.attr('src', next.attr('realsrc'));
-					// $this.children('.carousel-control').show();
-					// if (last)
-					// 	$this.children('.right.carousel-control').hide();
-					// if (first)
-					// 	$this.children('.left.carousel-control').hide();
-				});
-			%>
 		</script>
 		<script type="text/template" id="template-manga-window">
 			<% _.each(pages, function(_page ,i){ %>
