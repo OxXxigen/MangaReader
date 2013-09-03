@@ -66,7 +66,8 @@ $(function(){
 		events: {
 			"click #action-mangaSearch": "searchManga", // Обработчик клика на кнопке поиск манги
 			"keypress #searchMangaName" : "searchMangaReturnKey",
-			'click .manga-link' : "manga_link_click"
+			"click .manga-link" : "manga_link_click",
+			"click .btn_add_manga" : "addManga",
 		},
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
@@ -83,6 +84,15 @@ $(function(){
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
 		},
+		addManga : function(e){
+			var data   = $(e.target).data(),
+				plugin = data.plugin,
+				manga  = data.manga
+			if ($.isEmptyObject(plugin) || $.isEmptyObject(manga)) throw "Нет данных для сохранения";
+			result = confirm("Сохранить мангу?");
+			if (retult === false) return false;
+			
+		},
 		searchMangaReturnKey : function(e){
 			if (e.keyCode === 13) this.searchManga();
 		},
@@ -94,7 +104,7 @@ $(function(){
 				mangaName,
 				$('.mangahost:checked').map(function(){return this.id}).get(),
 				function(tpl,obj){
-					console.log("manga name: %s", MangaName);
+					console.log(obj);
 					appState.set({
 						state: "search",
 						mangaName : mangaName,
