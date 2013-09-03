@@ -156,6 +156,9 @@ $(function(){
 				mangaInfo : info,
 				pages     : pages,
 				page      : page,
+				selVolume : volume,
+				selChapter : chapter,
+				selPage    : page,
 				manga_pages : manga_pages
 			});
 
@@ -217,4 +220,10 @@ $(function(){
 	$('#carusel-prev').click(function(){
 		$("#carousel-manga-block").carousel('prev')
 	});
+
+	$('#changeMangaSelect').change(function(){
+		var mangaUrl = this.value;
+		var changeUrl = '!/manga' + mangaUrl;
+		controller.navigate(changeUrl, {trigger: true});
+	})
 });

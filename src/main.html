@@ -121,9 +121,12 @@
 												<span class="glyphicon glyphicon-fullscreen"></span>
 											</button>
 										</span>
-										<select class="form-control">
+										<select class="form-control" data-hostName="<%=hostname%>" id="changeMangaSelect">
 											<% _.each(mangaInfo.chaptersArray,function(chapter, i){ %>
-												<option value="<%=chapter.url%>"><%=chapter.title%></option>
+												<option value="/<%=hostname%>/<%=mangaPath%>/<%=chapter.volum%>/<%=chapter.chapter%>" <%=(chapter.volum === selVolume && chapter.chapter === selChapter) ? 'selected' : '' %>
+												>
+													<%=chapter.title%>
+												</option>
 											<% }); %>
 										</select>
 									</div>
