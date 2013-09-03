@@ -175,7 +175,7 @@ $(function(){
 	controller = new Controller(); // Создаём контроллер
 	Backbone.history.start();
 
-	$('article').on('slid','#carousel-manga-block', function() {
+	$('#carousel-manga-block').on('slid.bs.carousel', function () {
 		var first = $('.carousel-inner .item:first', this).is('.active');
 		var last  = $('.carousel-inner .item:last', this).is('.active');
 
@@ -188,6 +188,10 @@ $(function(){
 		if (first)
 			$(this).children('.left.carousel-control').hide();
 
+		var $currImage = currElem.find('img');
+		$currImage.attr('src', $currImage.data('lazy-load-src'));
+		$currImage.removeAttr('data-lazy-load-src');
+
 		var $nextImage = $('.active.item', this).next('.item').find('img');
 		$nextImage.attr('src', $nextImage.data('lazy-load-src'));
 		$nextImage.removeAttr('data-lazy-load-src');
@@ -199,5 +203,18 @@ $(function(){
 		$('.modal').animate({
 			scrollTop: 32
 		}, 300);
+
+		var id = currElem.find('img:visible').data('img_id');
+		$('#page_select').val(id);
+	});
+
+	$('#page_select').change(function(){
+		$("#carousel-manga-block").carousel(Number(this.value-1));
+	});
+	$('#carusel-next').click(function(){
+		$("#carousel-manga-block").carousel('next')
+	});
+	$('#carusel-prev').click(function(){
+		$("#carousel-manga-block").carousel('prev')
 	});
 });

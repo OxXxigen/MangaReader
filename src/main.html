@@ -115,24 +115,31 @@
 						<div class="modal-header">
 							<div class="row">
 								<div class="col-md-4">
-									<select class="form-control">
-									<% _.each(mangaInfo.chaptersArray,function(chapter, i){ %>
-										<option value="<%=chapter.url%>"><%=chapter.title%></option>
-									<% }); %>
-									</select>
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" style="height: 34px;padding-bottom: 9px;">
+												<span class="glyphicon glyphicon-fullscreen"></span>
+											</button>
+										</span>
+										<select class="form-control">
+											<% _.each(mangaInfo.chaptersArray,function(chapter, i){ %>
+												<option value="<%=chapter.url%>"><%=chapter.title%></option>
+											<% }); %>
+										</select>
+									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="input-group">
 										<span class="input-group-btn">
-											<button type="button" class="btn btn-default">Prev</button>
+											<button type="button" id="carusel-prev" class="btn btn-default">Prev</button>
 										</span>
-										<select class="form-control">
+										<select class="form-control" id="page_select">
 											<% _.each(pages,function(_page, i){ %>
 												<option value="<%=i+1%>"><%=i+1%></option>
 											<% }); %>
 										</select>
 										<span class="input-group-btn">
-											<button type="button" class="btn btn-default">Next</button>
+											<button type="button" id="carusel-next" class="btn btn-default">Next</button>
 										</span>
 									</div>
 								</div>
@@ -169,9 +176,7 @@
 				<div class="item <% if (i == 0) {%>active<%} %>">
 					<center>
 						<img style="width:100%" 
-						<%if (i == 0 || i == 1 || i <= page) {%>src="<%=_page.url%>"<%}else{%>data-lazy-load-src="<%=_page.url%>"<%}%>
-						
-						alt="" >
+						<%if (i == 0 || i == 1 || i <= page) {%>src="<%=_page.url%>"<%}else{%>data-lazy-load-src="<%=_page.url%>"<%}%> data-img_id="<%=i+1%>" >
 					</center>
 				</div>
 			<% });%>
