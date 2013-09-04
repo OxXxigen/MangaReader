@@ -178,7 +178,7 @@ $(function(){
 	controller = new Controller(); // Создаём контроллер
 	Backbone.history.start();
 
-	$('#carousel-manga-block').on('slid.bs.carousel', function () {
+	$('body').on('slid.bs.carousel','#carousel-manga-block',function () {
 		var first = $('.carousel-inner .item:first', this).is('.active');
 		var last  = $('.carousel-inner .item:last', this).is('.active');
 
@@ -211,19 +211,23 @@ $(function(){
 		$('#page_select').val(id);
 	});
 
-	$('#page_select').change(function(){
+	$('body').on('change','#page_select', function(){
 		$("#carousel-manga-block").carousel(Number(this.value-1));
 	});
-	$('#carusel-next').click(function(){
+	$('body').on('click','#carusel-next',function(){
 		$("#carousel-manga-block").carousel('next')
 	});
-	$('#carusel-prev').click(function(){
+	$('body').on('click','#carusel-prev',function(){
 		$("#carousel-manga-block").carousel('prev')
 	});
 
-	$('#changeMangaSelect').change(function(){
+	$('body').on('change','#changeMangaSelect',function(){
 		var mangaUrl = this.value;
 		var changeUrl = '!/manga' + mangaUrl;
 		controller.navigate(changeUrl, {trigger: true});
-	})
+	});
+	/*$('body').on('click','#btnCloseMangaWindow',function(){
+		var changeUrl = '!/manga/' + $(this).data('hostname') + '/' + $(this).data('mangapath');
+		controller.navigate(changeUrl, {trigger: true});
+	});*/
 });
