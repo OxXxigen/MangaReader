@@ -214,11 +214,17 @@ $(function(){
 	$('body').on('change','#page_select', function(){
 		$("#carousel-manga-block").carousel(Number(this.value-1));
 	});
+
 	$('body').on('click','#carusel-next',function(){
-		$("#carousel-manga-block").carousel('next')
+		$("#carousel-manga-block").carousel('next');
 	});
+
 	$('body').on('click','#carusel-prev',function(){
-		$("#carousel-manga-block").carousel('prev')
+		$("#carousel-manga-block").carousel('prev');
+	});
+
+	$('body').on('click','#carousel-manga-block',function(){
+		$("#carousel-manga-block").carousel('next');
 	});
 
 	$('body').on('change','#changeMangaSelect',function(){
