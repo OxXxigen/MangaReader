@@ -65,7 +65,9 @@ $(function(){
 		el: $("article"),
 		events: {
 			"click #action-mangaSearch": "searchManga", // Обработчик клика на кнопке поиск манги
-			'click .manga-link' : "manga_link_click"
+			"keypress #searchMangaName" : "searchMangaReturnKey",
+			"click .manga-link" : "manga_link_click",
+			"click .btn_add_manga" : "addManga",
 		},
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
@@ -82,13 +84,34 @@ $(function(){
 			$(this.el).html(this.templates[state](this.model.toJSON()));
 			return this;
 		},
-		searchManga: function(){
+		addManga : function(e){
+			var data   = $(e.target).data(),
+				plugin = data.plugin,
+				manga  = data.manga
+			if ($.isEmptyObject(plugin) || $.isEmptyObject(manga)) throw "Нет данных для сохранения";
+			result = confirm("Сохранить мангу?");
+			if (retult === false) return false;
+			
+		},
+		searchMangaReturnKey : function(e){
+			if (e.keyCode === 13) this.searchManga();
+		},
+		searchManga: function(event, MangaName){
 			var mangaName = $(this.el).find('#searchMangaName').val();
+			if (!$.isEmptyObject(MangaName))
+				mangaName = MangaName;
 			ReaderObj.searchManga(
 				mangaName,
 				$('.mangahost:checked').map(function(){return this.id}).get(),
 				function(tpl,obj){
-					$('#search-results').html(tpl);
+					console.log(obj);
+					appState.set({
+						state: "search",
+						mangaName : mangaName,
+						searchResults: tpl
+					});
+					if (!$.isEmptyObject(mangaName))
+						controller.navigate('!/search/' + mangaName, {trigger: true});
 				}
 			);
 		},
@@ -102,7 +125,7 @@ $(function(){
 			"": "home", // Пустой hash-тэг
 			"!/": "home", // Начальная страница
 			"!/home": "home", // Начальная страница
-			"!/search": "search", // Блок удачи
+			"!/search(/:MangaName)": "search", // Блок удачи
 			"!/manga/:hostname/:mangaPath(/:vol)(/:chapter)(/:page)" : "manga"
 		},
 
@@ -110,8 +133,9 @@ $(function(){
 			appState.set({ state: "home" });
 		},
 
-		search: function () {
-			appState.set({ state: "search" });
+		search: function (MangaName) {
+			appState.set({ state: "search",searchResults:null,mangaName:null});
+			if (MangaName) block.searchManga(null,MangaName);
 		},
 		manga: function(hostname, mangaPath, volume, chapter, page) {
 			var info = ReaderObj.getMangaInfo(hostname, mangaPath);
@@ -123,7 +147,6 @@ $(function(){
 										pages:pages,
 										page:page
 									});
-
 			}
 
 			appState.set({ 
@@ -131,7 +154,11 @@ $(function(){
 				hostname  : hostname,
 				mangaPath : mangaPath,
 				mangaInfo : info,
+				pages     : pages,
 				page      : page,
+				selVolume : volume,
+				selChapter : chapter,
+				selPage    : page,
 				manga_pages : manga_pages
 			});
 
@@ -151,7 +178,7 @@ $(function(){
 	controller = new Controller(); // Создаём контроллер
 	Backbone.history.start();
 
-	$('article').on('slid','#carousel-manga-block', function() {
+	$('body').on('slid.bs.carousel','#carousel-manga-block',function () {
 		var first = $('.carousel-inner .item:first', this).is('.active');
 		var last  = $('.carousel-inner .item:last', this).is('.active');
 
@@ -164,6 +191,10 @@ $(function(){
 		if (first)
 			$(this).children('.left.carousel-control').hide();
 
+		var $currImage = currElem.find('img');
+		$currImage.attr('src', $currImage.data('lazy-load-src'));
+		$currImage.removeAttr('data-lazy-load-src');
+
 		var $nextImage = $('.active.item', this).next('.item').find('img');
 		$nextImage.attr('src', $nextImage.data('lazy-load-src'));
 		$nextImage.removeAttr('data-lazy-load-src');
@@ -175,5 +206,28 @@ $(function(){
 		$('.modal').animate({
 			scrollTop: 32
 		}, 300);
+
+		var id = currElem.find('img:visible').data('img_id');
+		$('#page_select').val(id);
 	});
+
+	$('body').on('change','#page_select', function(){
+		$("#carousel-manga-block").carousel(Number(this.value-1));
+	});
+	$('body').on('click','#carusel-next',function(){
+		$("#carousel-manga-block").carousel('next')
+	});
+	$('body').on('click','#carusel-prev',function(){
+		$("#carousel-manga-block").carousel('prev')
+	});
+
+	$('body').on('change','#changeMangaSelect',function(){
+		var mangaUrl = this.value;
+		var changeUrl = '!/manga' + mangaUrl;
+		controller.navigate(changeUrl, {trigger: true});
+	});
+	/*$('body').on('click','#btnCloseMangaWindow',function(){
+		var changeUrl = '!/manga/' + $(this).data('hostname') + '/' + $(this).data('mangapath');
+		controller.navigate(changeUrl, {trigger: true});
+	});*/
 });
