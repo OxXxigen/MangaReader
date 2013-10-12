@@ -11,9 +11,7 @@
 	"permissions": [
 		"storage",
 		"unlimitedStorage",
-		"http://*/*"
+		"<all_urls>"
 	],
-	"key":"eldajpabdjafanpegofehcmnefphgbpj",
-	"update_url" : "https://dl.dropboxusercontent.com/s/avbhfytthi98kxf/updates.xml?token_hash=AAFHwkx0wVlFiw3t9ZJgtTdLXEIhdYOkk37qEjVDPdmajg&dl=1",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
