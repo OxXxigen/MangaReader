@@ -170,6 +170,7 @@ $(function(){
 					$('#carousel-manga-block').children('.left.carousel-control').hide();
 				}
 			}
+			imgResize();
 		}
 	});
 
@@ -203,9 +204,7 @@ $(function(){
 		$prevImage.attr('src', $prevImage.data('lazy-load-src'));
 		$prevImage.removeAttr('data-lazy-load-src');
 
-		$('.modal').animate({
-			scrollTop: 32
-		}, 300);
+		scrollToImg();
 
 		var id = currElem.find('img:visible').data('img_id');
 		$('#page_select').val(id);
@@ -236,4 +235,32 @@ $(function(){
 		var changeUrl = '!/manga/' + $(this).data('hostname') + '/' + $(this).data('mangapath');
 		controller.navigate(changeUrl, {trigger: true});
 	});*/
+
+	$('body').on('click','#btn-resize',function(){
+		setZoom();
+	});
 });
+
+function setZoom() {
+	var zoom = localStorage.getItem('zoom') === 'true' ? true : false;
+	zoom = !zoom;
+	localStorage.setItem('zoom',zoom);
+	imgResize();
+}
+
+function imgResize(){
+	var zoom = localStorage.getItem('zoom') === 'true' ? true : false;
+	var height = (zoom) ? screen.height : 'auto';
+	var width  = (zoom) ? '' : '100%';
+	$('.carousel-inner .item img').css({
+		height : height,
+		width  : width
+	});
+	scrollToImg();
+}
+
+function scrollToImg(){
+	$('.modal').animate({
+		scrollTop: 60
+	}, 300);
+}
