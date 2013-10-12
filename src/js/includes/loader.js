@@ -50,6 +50,20 @@ var ReaderController = function() {
 		if (callback) callback(pages);
 		return pages;
 	}
+	this.setBookmark = function(plugin, manga, title){
+		var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+		if ($.isEmptyObject(bookmarks)) bookmarks = {};
+		if (bookmarks.hasOwnProperty(manga)) {
+			alert('Закладка уже существует');
+			return false;
+		}
+		bookmarks[manga] = {
+			plugin : plugin,
+			manga  : manga,
+			title  : title
+		};
+		localStorage.setItem('bookmarks',JSON. stringify(bookmarks));
+	}
 }
 
 var ReaderObj = new ReaderController();
@@ -87,11 +101,11 @@ $(function(){
 		addManga : function(e){
 			var data   = $(e.target).data(),
 				plugin = data.plugin,
-				manga  = data.manga
+				manga  = data.manga,
+				title  = data.title
 			if ($.isEmptyObject(plugin) || $.isEmptyObject(manga)) throw "Нет данных для сохранения";
-			result = confirm("Сохранить мангу?");
-			if (retult === false) return false;
-			
+			if (!confirm("Сохранить мангу?")) return false;
+			ReaderObj.setBookmark(plugin, manga, title);
 		},
 		searchMangaReturnKey : function(e){
 			if (e.keyCode === 13) this.searchManga();
