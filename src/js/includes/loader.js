@@ -256,11 +256,10 @@ function imgResize(){
 		height : height,
 		width  : width
 	});
-	scrollToImg();
 }
 
 function scrollToImg(){
 	$('.modal').animate({
-		scrollTop: 60
+		scrollTop: $('.modal-body').position().top
 	}, 300);
 }
