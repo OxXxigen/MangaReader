@@ -242,7 +242,7 @@ $(function(){
 		$("#carousel-manga-block").carousel('prev');
 	});
 
-	$('body').on('click','#carousel-manga-block',function(){
+	$('body').on('click','#carousel-manga-block .carousel-inner',function(){
 		$("#carousel-manga-block").carousel('next');
 	});
 
