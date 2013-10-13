@@ -35,9 +35,11 @@ ReaderObj.addPlugin({
 	getMangaInfo : function( mangaPath ) {
 		var titleImagesArr = [],
 		    chaptersArray  = [],
-		    description    = '';
+		    description    = '',
+		    mangaTitle          = '',
+		    requestUrl     = this.host + mangaPath;
 		$.ajax({
-			url      : this.host + mangaPath,
+			url      : requestUrl,
 			async    : false,
 			dataType : "html",
 			success  : function( page ) {
@@ -47,6 +49,7 @@ ReaderObj.addPlugin({
 				if ($.isEmptyObject(titleImagesArr))
 					titleImagesArr = $('.subject-cower img', page).map(function(){return this.src}).get();
 				description    = $.trim($('.manga-description', page ).text());
+				mangaTitle     = $('.name', page).text() + ' | ' + $('.eng-name', page).text();
 				chaptersArray  = $('.cTable:contains(Список глав) tr:not(:first)', page).map(function( id, row ){
 					link_obj = $("td:eq(1) a", row);
 					status   = $("td:eq(1) sup", row).text();
@@ -68,7 +71,9 @@ ReaderObj.addPlugin({
 		return {
 			titleImagesArr : titleImagesArr,
 			chaptersArray  : chaptersArray,
-			description    : description
+			description    : description,
+			title          : mangaTitle,
+			backUrl        : requestUrl
 		};
 	},
 	getPages : function( mangaPath, volume , chapter ){

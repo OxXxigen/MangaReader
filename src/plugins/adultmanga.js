@@ -35,7 +35,9 @@ ReaderObj.addPlugin({
 	getMangaInfo : function( mangaPath ) {
 		var titleImagesArr = [],
 		    chaptersArray  = [],
-		    description    = '';
+		    description    = '',
+		    mangaTitle     = '',
+		    requestUrl     = this.host + mangaPath;
 		$.ajax({
 			url      : this.host + mangaPath,
 			async    : false,
@@ -45,6 +47,7 @@ ReaderObj.addPlugin({
 				if ($.isEmptyObject(titleImagesArr))
 					titleImagesArr = $('#slider > a', page).map(function(){return this.href}).get();
 				description    = $.trim($('.manga-description p:first', page ).text());
+				mangaTitle     = $('.name', page).text() + ' | ' + $('.eng-name', page).text();
 				chaptersArray  = $('.cTable:eq(2) tr:not(:first)', page).map(function( id, row ){
 					link_obj = $("td:eq(1) a", row);
 					status   = $("td:eq(1) sup", row).text();
@@ -66,7 +69,9 @@ ReaderObj.addPlugin({
 		return {
 			titleImagesArr : titleImagesArr,
 			chaptersArray  : chaptersArray,
-			description    : description
+			description    : description,
+			title          : mangaTitle,
+			backUrl        : requestUrl
 		};
 	},
 	getPages : function( mangaPath, volume , chapter ){
