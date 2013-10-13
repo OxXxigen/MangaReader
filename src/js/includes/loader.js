@@ -223,8 +223,11 @@ $(function(){
 
 		scrollToImg();
 
-		var id = currElem.find('img:visible').data('img_id');
-		$('#page_select').val(id);
+		var pageId = currElem.find('img:visible').data('img_id');
+		$('#page_select').val(pageId);
+
+		var state = appState.attributes;
+		controller.navigate('!/manga/' + state.hostname + '/' + state.mangaPath + '/' + state.selVolume + '/' + state.selChapter + '/' + pageId, {trigger: false});
 	});
 
 	$('body').on('change','#page_select', function(){
