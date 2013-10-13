@@ -91,13 +91,25 @@
 			</div>
 			<div class="pull-right col-sm-7 row">
 				<div class="well">
-					<h3>
-						<span style="padding-bottom : 5px;" class="glyphicon glyphicon-bookmark btn_add_manga" data-plugin="<%=appState.attributes.hostname%>" data-manga="/<%=appState.attributes.mangaPath%>" data-title="<%=mangaInfo.title%>"></span>
-						<%=mangaInfo.title%>
-						<a href="<%=mangaInfo.backUrl%>" target="_blank">
-							<span style="color: black;" class="glyphicon glyphicon-circle-arrow-right"></span>
-						</a>
-					</h3>
+					<div class="row">
+						<div class="col-md-1">
+							<h4>
+							<span style="padding-bottom : 5px;" class="glyphicon glyphicon-bookmark btn_add_manga" data-plugin="<%=appState.attributes.hostname%>" data-manga="/<%=appState.attributes.mangaPath%>" data-title="<%=mangaInfo.title%>"></span>
+							</h4>
+						</div>
+						<div class="col-md-10">
+							<h4>
+								<%=mangaInfo.title%>
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+								<a href="<%=mangaInfo.backUrl%>" target="_blank">
+									<span style="color: black;" class="glyphicon glyphicon-circle-arrow-right"></span>
+								</a>
+							</h4>
+						</div>
+					</div>
 				</div>
 				<div class="well">
 					<%=mangaInfo.description%>
