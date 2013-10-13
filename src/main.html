@@ -91,6 +91,15 @@
 			</div>
 			<div class="pull-right col-sm-7 row">
 				<div class="well">
+					<h3>
+						<span style="padding-bottom : 5px;" class="glyphicon glyphicon-bookmark btn_add_manga" data-plugin="<%=appState.attributes.hostname%>" data-manga="/<%=appState.attributes.mangaPath%>" data-title="<%=mangaInfo.title%>"></span>
+						<%=mangaInfo.title%>
+						<a href="<%=mangaInfo.backUrl%>" target="_blank">
+							<span style="color: black;" class="glyphicon glyphicon-circle-arrow-right"></span>
+						</a>
+					</h3>
+				</div>
+				<div class="well">
 					<%=mangaInfo.description%>
 				</div>
 				<div class="pre-scrollable well">
