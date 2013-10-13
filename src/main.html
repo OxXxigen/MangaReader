@@ -51,7 +51,13 @@
 		<footer>
 		</footer>
 		<script type="text/template" id="template-home">
-			template-home
+			<div>
+				<ul>
+					<% _.each(ReaderObj.getBookmarks(),function(manga){ %>
+						<li> <a href="#!/manga/<%=manga.plugin + manga.manga%>"><%=manga.title %></a></li>
+					<% }); %>
+				</ul>
+			</div>
 		</script>
 		<script type="text/template" id="template-manga-title">
 			<div class="pull-left col-sm-5 row">

@@ -64,6 +64,9 @@ var ReaderController = function() {
 		};
 		localStorage.setItem('bookmarks',JSON. stringify(bookmarks));
 	}
+	this.getBookmarks = function(){
+		return JSON.parse(localStorage.getItem('bookmarks'));
+	}
 }
 
 var ReaderObj = new ReaderController();
@@ -264,7 +267,7 @@ function setZoom() {
 
 function imgResize(){
 	var zoom = localStorage.getItem('zoom') === 'true' ? true : false;
-	var height = (zoom) ? screen.height : 'auto';
+	var height = (zoom) ? screen.height - 105 : 'auto';
 	var width  = (zoom) ? '' : '100%';
 	$('.carousel-inner .item img').css({
 		height : height,
@@ -274,6 +277,6 @@ function imgResize(){
 
 function scrollToImg(){
 	$('.modal').animate({
-		scrollTop: $('.modal-body').position().top
+		scrollTop: $('.modal-body').position().top + 10
 	}, 300);
 }
