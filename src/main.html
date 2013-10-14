@@ -51,12 +51,21 @@
 		<footer>
 		</footer>
 		<script type="text/template" id="template-home">
-			<div>
-				<ul>
-					<% _.each(ReaderObj.getBookmarks(),function(manga){ %>
-						<li> <a href="#!/manga/<%=manga.plugin + manga.manga%>"><%=manga.title %></a></li>
-					<% }); %>
-				</ul>
+			<div class="well">
+				<table>
+				<% _.each(ReaderObj.getBookmarks(),function(manga){ %>
+					<tr>
+						<td>
+							<a href="#!/manga/<%=manga.plugin + manga.manga%>"><%=manga.title%></a>
+						</td>
+						<td>
+							<a class="glyphicon glyphicon-arrow-right" href="#!/manga/<%=manga.plugin + manga.manga + '/' + manga.lastReadPoint.volume + '/' + manga.lastReadPoint.chapter + '/' + manga.lastReadPoint.page%>">
+								<%=manga.lastReadPoint.volume + '-' + manga.lastReadPoint.chapter%>
+							</a>
+						</td>
+					</tr>
+				<% }); %>
+				</table>
 			</div>
 		</script>
 		<script type="text/template" id="template-manga-title">

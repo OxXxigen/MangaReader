@@ -65,7 +65,16 @@ var ReaderController = function() {
 		localStorage.setItem('bookmarks',JSON. stringify(bookmarks));
 	}
 	this.getBookmarks = function(){
-		return JSON.parse(localStorage.getItem('bookmarks'));
+		var bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
+		bookmarks = $.map(bookmarks,function(data){
+			if (!data.hasOwnProperty('lastReadPoint')) data['lastReadPoint'] = {
+				volume  : 1,
+				chapter : 1,
+				page    : 1
+			}
+			return data;
+		});
+		return bookmarks;
 	}
 }
 
