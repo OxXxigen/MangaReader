@@ -60,20 +60,21 @@ var ReaderController = function() {
 		bookmarks[manga] = {
 			plugin : plugin,
 			manga  : manga,
-			title  : title
-		};
-		localStorage.setItem('bookmarks',JSON. stringify(bookmarks));
-	}
-	this.getBookmarks = function(){
-		var bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
-		bookmarks = $.map(bookmarks,function(data){
-			if (!data.hasOwnProperty('lastReadPoint')) data['lastReadPoint'] = {
+			title  : title,
+			lastReadPoint : {
 				volume  : 1,
 				chapter : 1,
 				page    : 1
 			}
+		};
+		localStorage.setItem('bookmarks',JSON. stringify(bookmarks));
+	}
+	this.getBookmarks = function(){
+		var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+		if ($.isEmptyObject(bookmarks)) bookmarks = {};
+		/*bookmarks = $.map(bookmarks,function(data){
 			return data;
-		});
+		});*/
 		return bookmarks;
 	}
 }
@@ -190,8 +191,8 @@ $(function(){
 
 			if (!$.isEmptyObject(pages)) {
 				$('#manga-window').modal('show');
-				if (!$.isEmptyObject(page)){
-					$('#carousel-manga-block').carousel(Number(page));
+				if (page != ""){
+					$('#carousel-manga-block').carousel(Number(page) - 1);
 				} else {
 					$('#carousel-manga-block').children('.left.carousel-control').hide();
 				}
