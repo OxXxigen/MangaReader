@@ -99,7 +99,8 @@ $(function(){
 		templates: { // Шаблоны на разное состояние
 			"home": _.template($('#template-home').html()),
 			"search": _.template($('#template-search').html()),
-			"manga": _.template($('#template-manga-title').html())
+			"manga": _.template($('#template-manga-title').html()),
+			"error": _.template($('#template-error').html())
 		},
 		initialize: function () { // Подписка на событие модели
 			this.model.bind('change', this.render, this);
@@ -153,7 +154,8 @@ $(function(){
 			"!/": "home", // Начальная страница
 			"!/home": "home", // Начальная страница
 			"!/search(/:MangaName)": "search", // Блок удачи
-			"!/manga/:hostname/:mangaPath(/:vol)(/:chapter)(/:page)" : "manga"
+			"!/manga/:hostname/:mangaPath(/:vol)(/:chapter)(/:page)" : "manga",
+			"!/error" : "error"
 		},
 
 		home: function () {
@@ -198,6 +200,9 @@ $(function(){
 				}
 			}
 			imgResize();
+		},
+		error: function(){
+			appState.set({state: "error"});
 		}
 	});
 
