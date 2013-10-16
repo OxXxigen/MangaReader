@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="js/screenShoter/screenShoter.js" charset="utf-8"></script>
 		<script type="text/javascript" src="js/ganalytics.js" charset="utf-8"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 
@@ -24,6 +25,9 @@
 			}
 			.modal-body {
 				padding: 10px 20px 10px 20px;
+			}
+			body{
+				height: 3000px;
 			}
 		</style>
 	</head>
@@ -54,8 +58,14 @@
 		<footer>
 		</footer>
 		<script type="text/template" id="template-error">
-			<div>
-				Добро пожаловать на страницу ошибок
+			<div class="well">
+				Wellcome to error page
+				<form id="send_error">
+				<input type="email" placeholder="Contact email" id="contact-email">
+				<textarea placeholder="Problem description"></textarea>
+				<input type="submit">
+				</form>
+				<img class="img-responsive" src="<%=Base64img%>"/>
 			</div>
 		</script>
 		<script type="text/template" id="template-home">
