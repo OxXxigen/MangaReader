@@ -202,7 +202,16 @@ $(function(){
 			imgResize();
 		},
 		error: function(){
-			appState.set({state: "error"});
+			// chrome.tabs.captureVisibleTab(null, function(img) {
+			// 	appState.set({
+			// 		state     : "error",
+			// 		Base64img : img
+			// 	});
+			// });
+			appState.set({
+					state     : "error",
+					Base64img : 'img'
+				});
 		}
 	});
 
