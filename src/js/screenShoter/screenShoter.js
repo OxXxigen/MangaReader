@@ -56,7 +56,8 @@ $(function(){
 	// screenObj.screenShot(function(img){
 	// 	$('.img-responsive').attr('src',img);
 	// });
-	screenObj.fullScreenShoot(function(img){
-		$('.img-responsive').attr('src',img);
-	});
+	// screenObj.fullScreenShoot(function(img){
+	// 	// $('.img-responsive').attr('src',img);
+	// 	$('body').append($('<img>').attr('src',img))
+	// });
 });
